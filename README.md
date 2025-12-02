@@ -15,5 +15,6 @@ Igualmente, intentaré hacerlo lo mejor posible.
 ## Problemas resueltos:
 
 DÍA 1: EL DIAL DE LAS PEL**AS. Me ha costado más de lo que me gustaría reconocer.
+DÍA 2: LOS DÍGITOS. Estaba jugando el Barça.
 
 
