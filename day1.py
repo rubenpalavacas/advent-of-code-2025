@@ -1,56 +1,50 @@
-DIAL = 50
-NUMBER_OF_ZEROS = 0
+from dayX import DayBase
 
-def move_dial(direction, quantity):
-    global DIAL, NUMBER_OF_ZEROS
+class Day1(DayBase):
+    def __init__(self):
+        super().__init__(day_number=1)
+        self.DIAL = 50
+        self.NUMBER_OF_ZEROS = 0
 
-    if direction == 'R':
-        NUMBER_OF_ZEROS += get_right_movement_zeros(DIAL, quantity)
-        DIAL += quantity
+    def move_dial(self, direction, quantity):
+        if direction == 'R':
+            self.NUMBER_OF_ZEROS += self.get_right_movement_zeros(self.DIAL, quantity)
+            self.DIAL += quantity
 
-    elif direction == 'L':
-        NUMBER_OF_ZEROS += get_left_movement_zeros(DIAL, quantity)
-        DIAL -= quantity
+        elif direction == 'L':
+            self.NUMBER_OF_ZEROS += self.get_left_movement_zeros(self.DIAL, quantity)
+            self.DIAL -= quantity
 
-    DIAL = DIAL % 100
+        self.DIAL = self.DIAL % 100
 
-    ##### PART 1 ZERO COUNTING ######
-    #if DIAL == 0:                  #
-    #    NUMBER_OF_ZEROS += 1       #
-    #################################
+        ##### PART 1 ZERO COUNTING ######
+        # if DIAL == 0:                  #
+        #    NUMBER_OF_ZEROS += 1       #
+        #################################
 
-def get_right_movement_zeros(dial, quantity):
-    return (dial + quantity) // 100
+    def get_right_movement_zeros(self, dial, quantity):
+        return (dial + quantity) // 100
 
-def get_left_movement_zeros(dial, quantity):
-    if quantity < dial:
-        return 0
+    def get_left_movement_zeros(self, dial, quantity):
+        if quantity < dial:
+            return 0
 
-    if dial == 0:
-        return quantity // 100
+        if dial == 0:
+            return quantity // 100
 
-    return (quantity - dial) // 100 + 1
+        return (quantity - dial) // 100 + 1
 
-def get_movement(line):
-    clean = line.strip()
-    if len(clean) < 2:
-        return None, None
+    def get_movement(self, line):
+        clean = line.strip()
+        if len(clean) < 2:
+            return None, None
 
-    return clean[0], int(clean[1:])
+        return clean[0], int(clean[1:])
 
-def main():
-    global DIAL, NUMBER_OF_ZEROS
-    try:
-        with open("./day1.txt", 'r') as file:
-            for line in file:
-                direction, quantity = get_movement(line)
-                if quantity is not None:
-                    move_dial(direction, quantity)
+    def solve(self, part):
+        for line in self.data:
+            direction, quantity = self.get_movement(line)
+            if quantity is not None:
+                self.move_dial(direction, quantity)
 
-    except FileNotFoundError:
-        print("File for day 1 not found")
-
-    print(f"Final counter value is: {NUMBER_OF_ZEROS}")
-
-if __name__ == '__main__':
-    main()
+        self.result = self.NUMBER_OF_ZEROS
